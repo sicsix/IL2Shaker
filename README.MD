@@ -2,8 +2,8 @@
 
 IL2Shaker is a bass shaker driver exclusively for [IL-2 Sturmovik: Great Battles](https://il2sturmovik.com/).
 
-The goal is to provide high quality effects tailored specifically to IL2 using as much of the telemetry data at 
-possible with all effects are generated on the fly at runtime. 
+The goal is to provide high quality effects tailored specifically to IL2 using as much of the telemetry data as possible
+to generate effects on the fly at run-time. 
 It is designed for ButtKicker and Dayton style transducers but may work with other setups.
 
 IL2Shaker currently has these effects modelled:
