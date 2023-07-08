@@ -2,7 +2,7 @@
 
 IL2Shaker is a bass shaker driver exclusively for [IL-2 Sturmovik: Great Battles](https://il2sturmovik.com/).
 
-It reads telemetry data from the game to provide the following tacticle tranducer effects:
+It reads telemetry data from the game to provide the following tactile transducer effects:
 * Engine vibrations modelled using crankshaft and camshaft frequencies and harmonics, varying with the current RPM and each engine is modelled individually in multi-engine aircraft.
 * Simulation time is modelled to provide accurately spaced gun fire according to each guns RPM. Frequency and volume of gun fire effects are determined by the kinetic energy of the projectile - big guns are deep and powerful.
 * Stall buffet effects simulate stalling with the amplitude and frequency of the vibrations varying according to conditions.
