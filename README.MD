@@ -12,7 +12,20 @@ It reads telemetry data from the game to provide the following tacticle tranduce
 
 ## Usage
 
-Download and extract the latest release, run `IL2Shaker.exe`, then select the correct audio output.
+First, edit `startup.cfg` in the `data/` folder in your IL-2 installation directory to include the following:
+
+```
+[KEY = telemetrydevice]
+    addr = "127.0.0.1"
+    decimation = 1
+    enable = true
+    port = 29373
+[END]
+```
+
+Decimation must be set to 1 to enable high frequency telemetry, any other number will result in the program failing to work.
+
+After this, download and extract the latest release, run `IL2Shaker.exe`, then select the correct audio output.
 Adjust volumes to suit your equipment and taste.
 
 ## Contributing
