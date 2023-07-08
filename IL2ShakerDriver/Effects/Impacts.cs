@@ -31,6 +31,10 @@ internal class Impacts : Effect
     {
         var prev = _previousAcceleration;
         _previousAcceleration = stateData.Acceleration;
+        
+        // Skip playing impacts for the first 5 seconds while aircraft is spawning in
+        if (stateData.Tick < 250)
+            return;
 
         if (stateData.Acceleration == Vector3.Zero || prev == Vector3.Zero)
             return;

@@ -52,8 +52,8 @@ internal class Bumps : Effect
         var diff = stateData.LandingGearPressure - prev;
         _prevPressures = stateData.LandingGearPressure;
 
-        // Skip the initial bumps on spawning aircraft
-        if (stateData.Tick < 200)
+        // Skip playing bumps for the first 5 seconds while aircraft is spawning in
+        if (stateData.Tick < 250)
             return;
 
         for (int i = 0; i < 4; i++)
