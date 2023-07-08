@@ -1,0 +1,949 @@
+﻿#region DEFAULT
+
+# This section must appear first
+# This sets the default settings for engine noise and weapon RPM
+# If EngineHarmonics is set on another aircraft it will use that instead
+# The layout of EngineHarmonics is for 1x, 2x, 3x and 4x camshaft RPM, where 2x also indicates crankshaft
+# The values at each index set the relative dB to engine effect volume, values should be <= 0
+# If a weapon on a aircraft does not exist in this file it will use the default RPM set and raise a warning
+- Name: Default
+  EngineHarmonics: [ -6, 0, -6, -3 ]
+  Guns:
+    - Name: Default
+      RPM: 800
+
+#endregion DEFAULT
+
+
+#region ALLIES
+
+- Name: I-16 type 24
+  Guns:
+    - Name: ShKAS
+      RPM: 1600
+      Indexes: [ 0, 1 ]
+      Velocity: [ 840 ]
+      Mass: [ 0.0258600004 ]
+    - Name: ShKAS
+      RPM: 1800
+      Indexes: [ 2, 3 ]
+      Velocity: [ 820 ]
+      Mass: [ 0.0258611105 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 0 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.12174444 ]
+
+- Name: LaGG-3 ser.29
+  Guns:
+    - Name: UB
+      RPM: 900
+      Indexes: [ 0 ]
+      Velocity: [ 860 ]
+      Mass: [ 0.167182505 ]
+    - Name: UB
+      RPM: 900
+      Indexes: [ 0 ]
+      Velocity: [ 860 ]
+      Mass: [ 0.1671749950 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 1 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.200000003 ]
+    - Name: VYa-23
+      RPM: 600
+      Indexes: [ 1 ]
+      Velocity: [ 900, 900, 900 ]
+      Mass: [ 0.504000008, 0.505499959, 0.502499998 ]
+    - Name: Sh-37
+      RPM: 185
+      Indexes: [ 1 ]
+      Velocity: [ 850, 850, 860 ]
+      Mass: [ 1.77999997, 1.79999995, 1.75999999 ]
+
+- Name: LA-5 ser.8
+  Guns:
+    - Name: ShVAK
+      RPM: 750
+      Indexes: [ 0, 1 ]
+      Velocity: [ 815, 815, 815 ]
+      Mass: [ 0.217752948, 0.219400004, 0.214400008 ]
+
+- Name: La-5FN ser.2
+  Guns:
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 0, 1 ]
+      Velocity: [ 815, 815, 815 ]
+      Mass: [ 0.217752948, 0.219400004, 0.214400008 ]
+
+- Name: MiG-3 ser.24
+  Guns:
+    - Name: ShKAS
+      RPM: 1800
+      Indexes: [ 0,1 ]
+      Velocity: [ 840 ]
+      Mass: [ 0.0258640014 ]
+    - Name: BS
+      RPM: 1000
+      Indexes: [ 0, 1, 2 ]
+      Velocity: [ 860 ]
+      Mass: [ 0.187503338 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 0,1 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.2310000060 ]
+
+- Name: Yak-1 ser.69
+  Guns:
+    - Name: ShKAS
+      RPM: 1800
+      Indexes: [ 0, 1 ]
+      Velocity: [ 840 ]
+      Mass: [ 0.013 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 2 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.21773334 ]
+
+- Name: Yak-1B ser.127
+  Guns:
+    - Name: UB
+      RPM: 1000
+      Indexes: [ 0 ]
+      Velocity: [ 860 ]
+      Mass: [ 0.08772727 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 1 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.2 ]
+
+- Name: Yak-7B ser.36
+  Guns:
+    - Name: UB
+      RPM: 1000
+      Indexes: [ 0, 1 ]
+      Velocity: [ 860 ]
+      Mass: [ 0.175 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 2 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.098000005 ]
+
+- Name: Yak-9 ser.1
+  Guns:
+    - Name: UB
+      RPM: 1000
+      Indexes: [ 0 ]
+      Velocity: [ 860 ]
+      Mass: [ 0.175 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 1 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.225 ]
+
+- Name: Yak-9T ser.1
+  Guns:
+    - Name: UB
+      RPM: 1000
+      Indexes: [ 0 ]
+      Velocity: [ 860 ]
+      Mass: [ 0.071 ]
+    - Name: NS-37
+      RPM: 250
+      Indexes: [ 1 ]
+      Velocity: [ 850, 850, 860 ]
+      Mass: [ 0.75, 1.795, 1.795 ]
+
+- Name: P-38J-25
+  Guns:
+    - Name: M2
+      RPM: 650
+      Indexes: [ 0 ]
+      Velocity: [ 798 ]
+      Mass: [ 0.27810666 ]
+    - Name: M2.50
+      RPM: 850
+      Indexes: [ 1, 2, 3, 4 ]
+      Velocity: [ 864 ]
+      Mass: [ 0.12419 ]
+
+- Name: P-39L-1
+  Guns:
+    - Name: M4
+      RPM: 150
+      Indexes: [ 0 ]
+      Velocity: [ 609 ]
+      Mass: [ 0.67586666 ]
+    - Name: M2.50
+      RPM: 850
+      Indexes: [ 1, 2 ]
+      Velocity: [ 864 ]
+      Mass: [ 0.084984995 ]
+    - Name: M2.30
+      RPM: 1350
+      Indexes: [ 3, 4, 5, 6 ]
+      Velocity: [ 845 ]
+      Mass: [ 0.029483335 ]
+
+- Name: P-40E-1
+  Guns:
+    - Name: M2.50
+      RPM: 850
+      Indexes: [ 0, 1, 2, 3, 4, 5 ]
+      Velocity: [ 864 ]
+      Mass: [ 0.13599999 ]
+
+- Name: P-47D-22
+  Guns:
+    - Name: M2.50
+      RPM: 850
+      Indexes: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+      Velocity: [ 864 ]
+      Mass: [ 0.14100748 ]
+
+- Name: P-47D-28
+  Guns:
+    - Name: M2.50
+      RPM: 850
+      Indexes: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+      Velocity: [ 864 ]
+      Mass: [ 0.14100748 ]
+
+- Name: P-51B-5
+  Guns:
+    - Name: M2.50
+      RPM: 850
+      Indexes: [ 0, 1, 2, 3 ]
+      Velocity: [ 864 ]
+      Mass: [ 0.13607858 ]
+
+- Name: P-51D-15
+  Guns:
+    - Name: M2.50
+      RPM: 850
+      Indexes: [ 0, 1, 2, 3, 4, 5 ]
+      Velocity: [ 864 ]
+      Mass: [ 0.124189995 ]
+
+- Name: Hurricane Mk.II
+  Guns:
+    - Name: Browning .303
+      RPM: 1150
+      Indexes: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+      Velocity: [ 740 ]
+      Mass: [ 0.030073965 ]
+    - Name: Hispano Mk.II
+      RPM: 650
+      Indexes: [ 0, 1, 2, 3 ]
+      Velocity: [ 798 ]
+      Mass: [ 0.2835 ]
+    - Name: Browning .303
+      RPM: 1150
+      Indexes: [ 0, 1 ]
+      Velocity: [ 740 ]
+      Mass: [ 0.03007231 ]
+    - Name: Vickers Class S
+      RPM: 125
+      Indexes: [ 2, 3 ]
+      Velocity: [ 570, 732 ]
+      Mass: [ 1.5, 1.5 ]
+    - Name: BS
+      RPM: 1000
+      Indexes: [ 0, 1 ]
+      Velocity: [ 860 ]
+      Mass: [ 0.17 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 2, 3 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.22083333 ]
+
+- Name: Spitfire Mk.VB
+  Guns:
+    - Name: Browning .303
+      RPM: 1150
+      Indexes: [ 0, 1, 2, 3 ]
+      Velocity: [ 740 ]
+      Mass: [ 0.030114286 ]
+    - Name: Hispano Mk.II
+      RPM: 650
+      Indexes: [ 4, 5 ]
+      Velocity: [ 868 ]
+      Mass: [ 0.2725 ]
+
+- Name: Spitfire Mk.IXe
+  Guns:
+    - Name: Browning .50
+      RPM: 850
+      Indexes: [ 0, 1 ]
+      Velocity: [ 864 ]
+      Mass: [ 0.140612 ]
+    - Name: Hispano Mk.II
+      RPM: 650
+      Indexes: [ 2, 3 ]
+      Velocity: [ 798 ]
+      Mass: [ 0.25514287 ]
+
+- Name: Spitfire Mk.XIV
+  Guns:
+    - Name: Browning .303
+      RPM: 1150
+      Indexes: [ 0, 1, 2, 3 ]
+      Velocity: [ 740 ]
+      Mass: [ 0.030114286 ]
+    - Name: Hispano Mk.II
+      RPM: 650
+      Indexes: [ 4, 5 ]
+      Velocity: [ 798 ]
+      Mass: [ 0.23812668 ]
+
+- Name: Spitfire Mk.XIVe
+  Guns:
+    - Name: Browning .50
+      RPM: 850
+      Indexes: [ 0, 1 ]
+      Velocity: [ 864 ]
+      Mass: [ 0.140612 ]
+    - Name: Hispano Mk.II
+      RPM: 650
+      Indexes: [ 2, 3 ]
+      Velocity: [ 798 ]
+      Mass: [ 0.20411333 ]
+
+- Name: Typhoon Mk.Ib
+  Guns:
+    - Name: Hispano Mk.II
+      RPM: 650
+      Indexes: [ 0, 1, 2, 3 ]
+      Velocity: [ 798 ]
+      Mass: [ 0.28351724 ]
+
+- Name: Tempest Mk.V ser.2
+  Guns:
+    - Name: Hispano Mk.V
+      RPM: 750
+      Indexes: [ 0, 1, 2, 3 ]
+      Velocity: [ 780 ]
+      Mass: [ 0.28350002 ]
+
+- Name: Mosquito F.B. Mk.VI ser.2
+  Guns:
+    - Name: Browning .303
+      RPM: 1150
+      Indexes: [ 0, 1, 2, 3 ]
+      Velocity: [ 740 ]
+      Mass: [ 0.030049998 ]
+    - Name: Hispano Mk.II
+      RPM: 650
+      Indexes: [ 4, 5, 6, 7 ]
+      Velocity: [ 798 ]
+      Mass: [ 0.28350002 ]
+    - Name: Molins
+      RPM: 55
+      Indexes: [ 2, 4 ]
+      Velocity: [ 890 ]
+      Mass: [ 6.35 ]
+
+- Name: Il-2 mod.1941
+  Guns:
+    - Name: ShKAS
+      RPM: 1800
+      Indexes: [ 0, 1 ]
+      Velocity: [ 820 ]
+      Mass: [ 0.010292 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 2, 3 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.2177143 ]
+    - Name: VYA-23
+      RPM: 600
+      Indexes: [ 2, 3 ]
+      Velocity: [ 900, 900, 900 ]
+      Mass: [ 0.50450003, 0.505499959, 0.502499998 ]
+
+- Name: Il-2 mod.1942
+  Guns:
+    - Name: ShKAS
+      RPM: 1800
+      Indexes: [ 0, 1 ]
+      Velocity: [ 820 ]
+      Mass: [ 0.0226000007 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 2, 3 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.21772 ]
+    - Name: VYA-23
+      RPM: 600
+      Indexes: [ 2, 3 ]
+      Velocity: [ 900, 900, 900 ]
+      Mass: [ 0.50450003, 0.50549996, 0.502499998 ]
+    - Name: SH-37
+      RPM: 185
+      Indexes: [ 2, 3 ]
+      Velocity: [ 850, 850, 860 ]
+      Mass: [ 1.77999997, 1.79999995,  1.75999999 ]
+
+- Name: Il-2 mod.1943
+  Guns:
+    - Name: ShKAS
+      RPM: 1800
+      Indexes: [ 0, 1 ]
+      Velocity: [ 820 ]
+      Mass: [ 0.0226000007 ]
+    - Name: ShVAK
+      RPM: 800
+      Indexes: [ 2, 3 ]
+      Velocity: [ 815 ]
+      Mass: [ 0.217720002 ]
+    - Name: VYA-23
+      RPM: 600
+      Indexes: [ 2, 3 ]
+      Velocity: [ 900, 900, 900 ]
+      Mass: [ 0.504500031, 0.505499959, 0.502499998 ]
+    - Name: NS-37
+      RPM: 250
+      Indexes: [ 2, 3 ]
+      Velocity: [ 850, 850, 860 ]
+      Mass: [ 1.77999997, 1.79999995, 1.75999999 ]
+
+- Name: U-2VS
+  Guns:
+    - Name: ShKAS
+      RPM: 1800
+      Indexes: [ 0 ]
+      Velocity: [ 820 ]
+      Mass: [ 0.0299999993 ]
+
+- Name: A-20B
+  Guns:
+    - Name: M2.50
+      RPM: 850
+      Indexes: [ 0, 1 ]
+      Velocity: [ 864 ]
+      Mass: [ 0.136000007 ]
+
+- Name: Pe-2 ser.35
+  Guns:
+    - Name: ShKAS
+      RPM: 1800
+      Indexes: [ 0 ]
+      Velocity: [ 820 ]
+      Mass: [ 0.0129999993 ]
+    - Name: UB
+      RPM: 1000
+      Indexes: [ 1 ]
+      Velocity: [ 860 ]
+      Mass: [ 0.063000001 ]
+
+- Name: Pe-2 ser.87
+  Guns:
+    - Name: ShKAS
+      RPM: 1800
+      Indexes: [ 0 ]
+      Velocity: [ 820 ]
+      Mass: [ 0.0129999993 ]
+    - Name: UB
+      RPM: 1000
+      Indexes: [ 1 ]
+      Velocity: [ 860 ]
+      Mass: [ 0.063000001 ]
+
+- Name: C-47A
+  
+#endregion ALLIES
+
+
+#region AXIS POWERS
+
+- Name: Bf 109 E-7
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0158500001 ]
+    - Name: MG FF/M
+      RPM: 540
+      Indexes: [ 2, 3 ]
+      Velocity: [ 707 ]
+      Mass: [ 0.112099998 ]
+
+- Name: Bf 109 F-2
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0143999998 ]
+    - Name: MG 151/15
+      RPM: 700
+      Indexes: [ 2 ]
+      Velocity: [ 960 ]
+      Mass: [ 0.148664996 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.131825 ]
+
+- Name: Bf 109 F-4
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0143999998 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.1183454990 ]
+    - Name: MG 151/15
+      RPM: 700
+      Indexes: [ 3, 4 ]
+      Velocity: [ 850 ]
+      Mass: [ 0.173892587 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 3, 4 ]
+      Velocity: [ 705 ]
+      Mass: [ 0.204448879 ]
+
+- Name: Bf 109 G-2
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0143999998 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.118345499 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 3, 4 ]
+      Velocity: [ 705 ]
+      Mass: [ 0.204448879 ]
+
+- Name: Bf 109 G-4
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0143999998 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.118345499 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 3, 4 ]
+      Velocity: [ 705 ]
+      Mass: [ 0.204448879 ]
+
+- Name: Bf 109 G-6
+  Guns:
+    - Name: MG 131
+      RPM: 900
+      Indexes: [ 0, 1 ]
+      Velocity: [ 750 ]
+      Mass: [ 0.0833333358 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.118349999 ]
+    - Name: MK 108
+      RPM: 600
+      Indexes: [ 2 ]
+      Velocity: [ 525 ]
+      Mass: [ 0.585000038 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 3, 4 ]
+      Velocity: [ 705 ]
+      Mass: [ 0.204448879 ]
+
+- Name: Bf 109 G-6 Late
+  Guns:
+    - Name: MG 131
+      RPM: 900
+      Indexes: [ 0, 1 ]
+      Velocity: [ 750 ]
+      Mass: [ 0.0833333358 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.118349999 ]
+    - Name: PUT_NAME_HERE
+      RPM: 600
+      Indexes: [ 2 ]
+      Velocity: [ 525 ]
+      Mass: [ 0.585000038 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 3, 4 ]
+      Velocity: [ 705 ]
+      Mass: [ 0.204448879 ]
+
+- Name: Bf 109 G-6AS
+  Guns:
+    - Name: MG 131
+      RPM: 900
+      Indexes: [ 0, 1 ]
+      Velocity: [ 750 ]
+      Mass: [ 0.0833333358 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.118349999 ]
+    - Name: MK 108
+      RPM: 600
+      Indexes: [ 2 ]
+      Velocity: [ 525 ]
+      Mass: [ 0.585000038 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 3, 4 ]
+      Velocity: [ 705 ]
+      Mass: [ 0.204448879 ]
+
+- Name: Bf 109 G-14
+  Guns:
+    - Name: MG 131
+      RPM: 900
+      Indexes: [ 0, 1 ]
+      Velocity: [ 750 ]
+      Mass: [ 0.0833333358 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.118349999 ]
+    - Name: MK 108
+      RPM: 600
+      Indexes: [ 2 ]
+      Velocity: [ 525 ]
+      Mass: [ 0.585000038 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 3, 4 ]
+      Velocity: [ 705 ]
+      Mass: [ 0.204448879 ]
+
+- Name: Bf 109 K-4
+  Guns:
+    - Name: MG 131
+      RPM: 900
+      Indexes: [ 0, 1 ]
+      Velocity: [ 750 ]
+      Mass: [ 0.0833333358 ]
+    - Name: MK 108
+      RPM: 600
+      Indexes: [ 2 ]
+      Velocity: [ 525 ]
+      Mass: [ 0.585000038 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 3, 4 ]
+      Velocity: [ 705 ]
+      Mass: [ 0.204448879 ]
+
+- Name: Fw 190 A-3
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0287511107 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2, 3 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.210095987 ]
+    - Name: MG FF/M
+      RPM: 540
+      Indexes: [ 4, 5 ]
+      Velocity: [ 707, 707 ]
+      Mass: [ 0.0822166651, 0.0822222233 ]
+
+- Name: Fw 190 A-5
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0287511107 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2, 3 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.210095987 ]
+    - Name: MG FF/M
+      RPM: 540
+      Indexes: [ 4, 5 ]
+      Velocity: [ 707 ]
+      Mass: [ 0.0822222233 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 4, 5, 6, 7 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.210088 ]
+
+- Name: Fw 190 A-6
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1, 6, 7 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0287511107 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2, 3 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.210095987 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 4, 5 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.221428573 ]
+
+- Name: Fw 190 A-8
+  Guns:
+    - Name: MG 131
+      RPM: 900
+      Indexes: [ 0, 1 ]
+      Velocity: [ 750 ]
+      Mass: [ 0.0850000009 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2, 3 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.210095987 ]
+    - Name: MG 151/20
+      RPM: 698
+      Indexes: [ 4, 5 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.210099995 ]
+    - Name: MK 108
+      RPM: 600
+      Indexes: [ 4, 5 ]
+      Velocity: [ 525 ]
+      Mass: [ 0.583999991 ]
+
+- Name: Fw 190 D-9
+  Guns:
+    - Name: MG 131
+      RPM: 900
+      Indexes: [ 0, 1 ]
+      Velocity: [ 750 ]
+      Mass: [ 0.0850000009 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2, 3 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.210104004 ]
+
+- Name: MC.202 ser.VIII
+  Guns:
+    - Name: Breda 12.7
+      RPM: 700
+      Indexes: [ 0, 1 ]
+      Velocity: [ 770 ]
+      Mass: [ 0.0841500014 ]
+    - Name: Breda 7.7
+      RPM: 900
+      Indexes: [ 2, 3 ]
+      Velocity: [ 730 ]
+      Mass: [ 0.0252999999 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2, 3 ]
+      Velocity: [ 705 ]
+      Mass: [ 0.204448879 ]
+
+- Name: Bf 110 E-2
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1, 2, 3 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0158500001 ]
+    - Name: MG FF/M
+      RPM: 540
+      Indexes: [ 4, 5 ]
+      Velocity: [ 707 ]
+      Mass: [ 0.338888884 ]
+
+- Name: Bf 110 G-2
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1, 2, 3 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0158500001 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 4 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.210105002 ]
+    - Name: BK 3.7
+      RPM: 160
+      Indexes: [ 4 ]
+      Velocity: [ 1146, 914 ]
+      Mass: [ 1.29400003, 1.43400002 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 5 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.21010001 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 6, 7 ]
+      Velocity: [ 705 ]
+      Mass: [ 0.210099995 ]
+
+- Name: Hs 129 B-2
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0264999997 ]
+    - Name: MG 151/15
+      RPM: 700
+      Indexes: [ 2, 3 ]
+      Velocity: [ 960 ]
+      Mass: [ 0.124800004 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2, 3 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.1184 ]
+    - Name: MK 101
+      RPM: 250
+      Indexes: [ 4 ]
+      Velocity: [ 960, 900 ]
+      Mass: [ 0.80400002, 0.777999997 ]
+    - Name: MK 103
+      RPM: 400
+      Indexes: [ 4 ]
+      Velocity: [ 960, 900 ]
+      Mass: [ 0.934000015, 0.907999992 ]
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 4, 5, 6, 7 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0264999997 ]
+
+- Name: Ju 87 D-3
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0106000006 ]
+    - Name: BK 3.7
+      RPM: 160
+      Indexes: [ 0, 1 ]
+      Velocity: [ 1146, 914 ]
+      Mass: [ 1.29400003, 1.43400002 ]
+    - Name: WB 81 B
+      RPM: 3000
+      Indexes: [ 2, 3 ]
+      Velocity: [ 790 ]
+      Mass: [ 0.0297999997 ]
+
+- Name: Me 262 A
+  Guns:
+    - Name: MK 108
+      RPM: 600
+      Indexes: [ 0, 1, 2 ]
+      Velocity: [ 525 ]
+      Mass: [ 0.593890011 ]
+    - Name: MK 108
+      RPM: 600
+      Indexes: [ 3 ]
+      Velocity: [ 525 ]
+      Mass: [ 0.593887508 ]
+
+- Name: Me 410 A-1
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0295000002 ]
+    - Name: MG 131
+      RPM: 900
+      Indexes: [ 0, 1 ]
+      Velocity: [ 750 ]
+      Mass: [ 0.0839999989 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 2, 3, 4, 5, 6, 7 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.245700002 ]
+    - Name: MK 103
+      RPM: 400
+      Indexes: [ 4, 5 ]
+      Velocity: [ 900 ]
+      Mass: [ 0.921999991 ]
+    - Name: BK 5
+      RPM: 50
+      Indexes: [ 4 ]
+      Velocity: [ 920 ]
+      Mass: [ 3.50999999 ]
+
+- Name: Ar 234 B-2
+  Guns:
+    - Name: PUT_NAME_HERE
+      RPM: 700
+      Indexes: [ 0, 1 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.144962996 ]
+
+- Name: He 111 H-6
+
+- Name: He 111 H-16
+
+- Name: Ju 88 A-4
+
+- Name: Ju 88 C-6
+  Guns:
+    - Name: MG 17
+      RPM: 1200
+      Indexes: [ 0, 1, 2 ]
+      Velocity: [ 855 ]
+      Mass: [ 0.0295000002 ]
+    - Name: MG FF/M
+      RPM: 540
+      Indexes: [ 3, 4, 5 ]
+      Velocity: [ 707 ]
+      Mass: [ 0.508333325 ]
+    - Name: MG 151/20
+      RPM: 700
+      Indexes: [ 3 ]
+      Velocity: [ 805 ]
+      Mass: [ 0.222331434 ]
+
+- Name: Ju 52 3mg4e
+
+#endregion AXIS POWERS
+

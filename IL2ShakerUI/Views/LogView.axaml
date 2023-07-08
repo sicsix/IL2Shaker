@@ -1,0 +1,25 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:IL2ShakerUI.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="IL2ShakerUI.Views.LogView"
+             x:DataType="vm:LogViewModel"
+             x:CompileBindings="True">
+
+    <Border Margin="16" Padding="4" BorderThickness="2" CornerRadius="3" BorderBrush="DarkGray">
+        <avaloniaEdit:TextEditor Name="TextEditor"
+                                 Document="{Binding TextDocument, Mode=OneWay}"
+                                 IsReadOnly="True"
+                                 WordWrap="True"
+                                 SyntaxHighlighting="Log"
+                                 ShowLineNumbers="False"
+                                 FontFamily="Consolas, Menlo, Monospace"
+                                 FontSize="14"
+                                 FontWeight="SemiBold"
+                                 VerticalScrollBarVisibility="Visible" />
+    </Border>
+
+</UserControl>

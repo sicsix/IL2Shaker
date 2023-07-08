@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IL2TelemetryRelay", "IL2TelemetryRelay\IL2TelemetryRelay.csproj", "{419F6710-2A44-4F74-9528-CC5411A5646D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IL2ShakerDriver", "IL2ShakerDriver\IL2ShakerDriver.csproj", "{7BD3EC16-F31D-4CF0-88ED-A6FDACD171F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IL2ShakerUI", "IL2ShakerUI\IL2ShakerUI.csproj", "{8845DF09-BC0C-4A05-A911-ECB2C2367E1F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{419F6710-2A44-4F74-9528-CC5411A5646D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419F6710-2A44-4F74-9528-CC5411A5646D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419F6710-2A44-4F74-9528-CC5411A5646D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419F6710-2A44-4F74-9528-CC5411A5646D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD3EC16-F31D-4CF0-88ED-A6FDACD171F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD3EC16-F31D-4CF0-88ED-A6FDACD171F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD3EC16-F31D-4CF0-88ED-A6FDACD171F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD3EC16-F31D-4CF0-88ED-A6FDACD171F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8845DF09-BC0C-4A05-A911-ECB2C2367E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8845DF09-BC0C-4A05-A911-ECB2C2367E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8845DF09-BC0C-4A05-A911-ECB2C2367E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8845DF09-BC0C-4A05-A911-ECB2C2367E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\IL2TelemetryRelay\IL2TelemetryRelay.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MathNet.Filtering" Version="0.7.0"/>
+        <PackageReference Include="NAudio" Version="2.1.0"/>
+        <PackageReference Include="Serilog" Version="3.0.1"/>
+        <PackageReference Include="YamlDotNet" Version="13.1.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Planes.yaml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+</Project>

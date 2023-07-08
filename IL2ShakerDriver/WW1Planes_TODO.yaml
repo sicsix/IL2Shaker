@@ -1,0 +1,109 @@
+﻿# Incomplete -- Need to research effect of engine RPM on fire rate
+
+#region ENTENTE
+
+- Name: SPAD 13.C1
+  Guns:
+    - Name: Vickers Mk.I
+      RPM: 750
+      Indexes: [ 0, 1 ]
+      Velocity: [ 745, 745 ]
+      Mass: [ 0.00249999994, 0.00499999989 ]
+    - Name: Balloon Gun
+      RPM: 600
+      Indexes: [ 0, 1 ]
+      Velocity: [ 610 ]
+      Mass: [ 0.00499999989 ]
+
+- Name: S.E.5a
+  Guns:
+    - Name: Vickers Mk.I
+      RPM: 750
+      Indexes: [ 0 ]
+      Velocity: [ 745, 745 ]
+      Mass: [ 0.00249999994, 0.00499999989 ]
+    - Name: Lewis Gun
+      RPM: 550
+      Indexes: [ 1 ]
+      Velocity: [ 745, 745 ]
+      Mass: [ 0.00257731951, 0.00515463902 ]
+
+- Name: Sopwith Camel
+  Guns:
+    - Name: Vickers Mk.I
+      RPM: 750
+      Indexes: [ 0, 1 ]
+      Velocity: [ 745, 745 ]
+      Mass: [ 0.00200000009, 0.00400000019 ]
+
+- Name: Sopwith Dolphin
+  Guns:
+    - Name: Vickers Mk.I
+      RPM: 750
+      Indexes: [ 0, 1 ]
+      Velocity: [ 745, 745 ]
+      Mass: [ 0.00200000009, 0.00400000019 ]
+    - Name: Lewis Gun
+      RPM: 550
+      Indexes: [ 2, 3 ]
+      Velocity: [ 745 ]
+      Mass: [ 0.00515463902 ]
+    - Name: Lewis Gun
+      RPM: 550
+      Indexes: [ 4, 5 ]
+      Velocity: [ 745 ]
+      Mass: [ 0.010309278 ]
+
+- Name: Bristol F2B (F.II)
+  Guns:
+    - Name: Vickers Mk.I
+      RPM: 750
+      Indexes: [ 0 ]
+      Velocity: [ 745 ]
+      Mass: [ 0.00102774927 ]
+    - Name: Lewis Gun
+      RPM: 550
+      Indexes: [ 1, 2 ]
+      Velocity: [ 745 ]
+      Mass: [ 0.00343642617 ]
+
+- Name: Bristol F2B (F.III)
+  Guns:
+    - Name: Vickers Mk.I
+      RPM: 750
+      Indexes: [ 0 ]
+      Velocity: [ 745 ]
+      Mass: [ 0.00102774927 ]
+    - Name: Lewis Gun
+      RPM: 550
+      Indexes: [ 1, 2 ]
+      Velocity: [ 745 ]
+      Mass: [ 0.00343642617 ]
+
+#endregion ENTENTE
+
+
+#region CENTRAL POWERS
+
+- Name: Albatros D.Va
+  Guns:
+    - Name: LMG 08/15
+      RPM: 600
+      Indexes: [ 0, 1 ]
+      Velocity: [ 825, 825 ]
+      Mass: [ 0.00200000009, 0.00400000019 ]
+    - Name: Lewis Gun
+      RPM: 550
+      Indexes: [ 2 ]
+      Velocity: [ 745 ]
+      Mass: [ 0.00343642617 ]
+
+- Name: Fokker Dr.I
+  Guns:
+    - Name: LMG 08/15
+      RPM: 638
+      Indexes: [ 0, 1 ]
+      Velocity: [ 825 ]
+      Mass: [ 0.00200000009 ]
+
+#endregion CENTRAL POWERS

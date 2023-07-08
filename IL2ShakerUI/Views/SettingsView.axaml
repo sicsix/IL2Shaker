@@ -1,0 +1,156 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:IL2ShakerUI.ViewModels"
+             xmlns:models="clr-namespace:IL2ShakerUI.Models"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="680"
+             x:Class="IL2ShakerUI.Views.SettingsView"
+             x:DataType="viewModels:SettingsViewModel"
+             x:CompileBindings="True">
+    <UserControl.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="8" />
+        </Style>
+        <Style Selector="TextBlock.Right">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="Slider">
+            <Setter Property="IsSnapToTickEnabled" Value="True" />
+            <Setter Property="TickFrequency" Value="1" />
+            <Setter Property="TickPlacement" Value="BottomRight" />
+            <Setter Property="Minimum" Value="-40" />
+            <Setter Property="Maximum" Value="0" />
+            <Setter Property="Margin" Value="8" />
+        </Style>
+        <Style Selector="CheckBox">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Segoe Fluent Icons" />
+            <Setter Property="Width" Value="60" />
+            <Setter Property="Height" Value="60" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="32" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid ShowGridLines="False" ColumnDefinitions="220,*,220">
+        <Grid Grid.Column="1" ShowGridLines="False" ColumnDefinitions="200,60,340, 60"
+              RowDefinitions="64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+
+            <!-- Output Device  -->
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Output Device:" />
+            <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Items="{Binding OutputDevices}"
+                      SelectedItem="{Binding Settings.OutputDevice}" />
+
+            <!-- Master -->
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Master Volume:" />
+            <TextBlock Grid.Row="1" Grid.Column="1" Classes="Right"
+                       Text="{Binding #Master.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="1" Grid.Column="2" Name="Master"
+                    Value="{Binding Settings.((models:EffectSettings)MasterVolume).Value}" />
+            <CheckBox Grid.Row="1" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)MasterVolume).Enabled}" />
+
+            <!-- Engine -->
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Engine:" />
+            <TextBlock Grid.Row="2" Grid.Column="1" Classes="Right"
+                       Text="{Binding #Engine.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="2" Grid.Column="2" Name="Engine"
+                    Value="{Binding Settings.((models:EffectSettings)Engine).Value}" />
+            <CheckBox Grid.Row="2" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)Engine).Enabled}" />
+
+            <!-- Landing Gear -->
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Landing Gear:" />
+            <TextBlock Grid.Row="3" Grid.Column="1" Classes="Right"
+                       Text="{Binding #LandingGear.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="3" Grid.Column="2" Name="LandingGear"
+                    Value="{Binding Settings.((models:EffectSettings)LandingGear).Value}" />
+            <CheckBox Grid.Row="3" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)LandingGear).Enabled}" />
+
+            <!-- Bumps -->
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Bumps" />
+            <TextBlock Grid.Row="4" Grid.Column="1" Classes="Right"
+                       Text="{Binding #Bumps.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="4" Grid.Column="2" Name="Bumps"
+                    Value="{Binding Settings.((models:EffectSettings)Bumps).Value}" />
+            <CheckBox Grid.Row="4" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)Bumps).Enabled}" />
+
+            <!-- Flaps -->
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Flaps:" />
+            <TextBlock Grid.Row="5" Grid.Column="1" Classes="Right"
+                       Text="{Binding #Flaps.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="5" Grid.Column="2" Name="Flaps"
+                    Value="{Binding Settings.((models:EffectSettings)Flaps).Value}" />
+            <CheckBox Grid.Row="5" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)Flaps).Enabled}" />
+
+            <!-- Stall Buffet -->
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Stall Buffet:" />
+            <TextBlock Grid.Row="6" Grid.Column="1" Classes="Right"
+                       Text="{Binding #StallBuffet.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="6" Grid.Column="2" Name="StallBuffet"
+                    Value="{Binding Settings.((models:EffectSettings)StallBuffet).Value}" />
+            <CheckBox Grid.Row="6" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)StallBuffet).Enabled}" />
+
+            <!-- Impacts -->
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Impacts:" />
+            <TextBlock Grid.Row="7" Grid.Column="1" Classes="Right"
+                       Text="{Binding #Impacts.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="7" Grid.Column="2" Name="Impacts"
+                    Value="{Binding Settings.((models:EffectSettings)Impacts).Value}" />
+            <CheckBox Grid.Row="7" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)Impacts).Enabled}" />
+
+            <!-- Hits Received -->
+            <TextBlock Grid.Row="8" Grid.Column="0" Text="Hits Received:" />
+            <TextBlock Grid.Row="8" Grid.Column="1" Classes="Right"
+                       Text="{Binding #HitsReceived.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="8" Grid.Column="2" Name="HitsReceived"
+                    Value="{Binding Settings.((models:EffectSettings)HitsReceived).Value}" />
+            <CheckBox Grid.Row="8" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)HitsReceived).Enabled}" />
+
+            <!-- Gunfire -->
+            <TextBlock Grid.Row="9" Grid.Column="0" Text="Gunfire:" />
+            <TextBlock Grid.Row="9" Grid.Column="1" Classes="Right"
+                       Text="{Binding #Gunfire.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="9" Grid.Column="2" Name="Gunfire"
+                    Value="{Binding Settings.((models:EffectSettings)Gunfire).Value}" />
+            <CheckBox Grid.Row="9" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)Gunfire).Enabled}" />
+
+            <!-- Ordnance Release -->
+            <TextBlock Grid.Row="10" Grid.Column="0" Text="Ordnance Release:" />
+            <TextBlock Grid.Row="10" Grid.Column="1" Classes="Right"
+                       Text="{Binding #OrdnanceRelease.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="10" Grid.Column="2" Name="OrdnanceRelease"
+                    Value="{Binding Settings.((models:EffectSettings)OrdnanceRelease).Value}" />
+            <CheckBox Grid.Row="10" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)OrdnanceRelease).Enabled}" />
+        </Grid>
+        <StackPanel Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal"
+                    Spacing="8" Margin="8">
+            <Button Content="&#xe72c;" Command="{Binding RevertCommand}" ToolTip.Tip="Revert to default" />
+            <Button Content="&#xe7a7;" Command="{Binding UndoCommand}" ToolTip.Tip="Undo changes" />
+            <Button Content="&#xe74e;" Command="{Binding SaveCommand}" ToolTip.Tip="Save" />
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="IL2ShakerUI/App.axaml" value="IL2ShakerUI/IL2ShakerUI.csproj" />
+        <entry key="IL2ShakerUI/Controls/SliderSetting.axaml" value="IL2ShakerUI/IL2ShakerUI.csproj" />
+        <entry key="IL2ShakerUI/Views/AdvancedView.axaml" value="IL2ShakerUI/IL2ShakerUI.csproj" />
+        <entry key="IL2ShakerUI/Views/LevelsView.axaml" value="IL2ShakerUI/IL2ShakerUI.csproj" />
+        <entry key="IL2ShakerUI/Views/LogView.axaml" value="IL2ShakerUI/IL2ShakerUI.csproj" />
+        <entry key="IL2ShakerUI/Views/LogWindow.axaml" value="IL2ShakerUI/IL2ShakerUI.csproj" />
+        <entry key="IL2ShakerUI/Views/MainWindow.axaml" value="IL2ShakerUI/IL2ShakerUI.csproj" />
+        <entry key="IL2ShakerUI/Views/SettingsView.axaml" value="IL2ShakerUI/IL2ShakerUI.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

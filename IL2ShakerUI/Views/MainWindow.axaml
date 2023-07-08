@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:IL2ShakerUI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:AvaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+        xmlns:views="clr-namespace:IL2ShakerUI.Views"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
+        Width="1280" Height="720"
+        MinWidth="1280"
+        MinHeight="800"
+        x:Class="IL2ShakerUI.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/1372203566.ico"
+        Title="IL2 Shaker"
+        x:CompileBindings="True">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <TabControl>
+        <TabItem Header="Log" VerticalContentAlignment="Center">
+            <views:LogView DataContext="{Binding LogViewModel}" />
+        </TabItem>
+        <TabItem Header="Settings" VerticalContentAlignment="Center">
+            <views:SettingsView DataContext="{Binding SettingsViewModel}" />
+        </TabItem>
+        <TabItem Header="Advanced" VerticalContentAlignment="Center">
+            <views:AdvancedView DataContext="{Binding SettingsViewModel}" />
+        </TabItem>
+    </TabControl>
+</Window>
