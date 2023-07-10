@@ -15,6 +15,9 @@ internal class LandingGear : Effect
     private readonly bool[]                   _actuating           = new bool[4];
     private readonly Vector4                  _harmonics           = new(1, 2, 3, 4);
 
+    private const float MinChangeForActuation = 0.0001f;
+    private const float MaxChangeForActuation = 0.25f;
+    
     private const float ActuatingBaseFreq  = 50;
     private const float BeginActuatingFreq = 80;
     private const float RetractedFreq      = 70;
@@ -76,10 +79,12 @@ internal class LandingGear : Effect
         for (int i = 0; i < 4; i++)
         {
             float position = stateData.LandingGearPosition[i];
-            // It's only actuating if it has slightly moved since the previous packet
-            // This gets rid of false actuations/extensions on fixed gear aircraft etc.
+            // MaxChangeForActuation prevents actuation from firing when first spawning on or unpausing the game, since
+            // the landing gear positions can jump from 0 -> 1.
+            // MinChangeForActuation is intended to prevent actuation when the aircraft is destroyed, it appears that
+            // the values can change slightly each tick causing the effect to fire.
             float diff      = Math.Abs(position - _previousPosition[i]);
-            bool  actuating = diff is > 0.01f and < 0.25f;
+            bool  actuating = diff is > MinChangeForActuation and < MaxChangeForActuation;
 
             bool wasActuating = _actuating[i];
 
@@ -91,6 +96,7 @@ internal class LandingGear : Effect
             }
             else if (!actuating && wasActuating)
             {
+                Logging.At(this).Debug("Landing gear {Index} stopped actuating", i);
                 // Stop the generator
                 _harmonicsGenerators[i].SetTarget(ActuatingBaseFreq, Vector4.Zero, 0.5f);
 
