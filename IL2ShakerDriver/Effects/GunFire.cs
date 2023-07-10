@@ -13,20 +13,19 @@ internal class GunFire : Effect
     private readonly List<TimedImpulseGenerator> _impulseGenerators = new();
     private readonly List<GunState>              _gunStates         = new();
     private readonly List<Gun>                   _guns              = new();
+    private readonly List<bool>                  _aggregated        = new();
     private readonly List<float>                 _distances         = new();
     private readonly GunRPMCalculator            _gunRPMCalculator;
 
     private string _aircraftName = string.Empty;
 
-    private Volume _primaryFreqMinVolume;
-    private Volume _primaryFreqMaxVolume;
-    private Volume _secondFreqVolumeDiff;
+    // 6th root of the minimum and maximum kinetic energy of all guns in the game, brings everything a bit closer together
+    private const float MinRtKineticEnergy  = 1.318896715f;
+    private const float MaxRtKineticEnergy  = 3.687686192f;
 
-    private const float MinSqrKineticEnergy = 1.86011f;
-    private const float MaxSqrKineticEnergy = 50.149f;
-    private const float FreqMin             = 18f;
-    private const float FreqMax             = 53.33333f;
-    private const float SecondFreqMult      = 1.5f;
+    // 40 might sound a bit better here, needs more testing
+    private const float FreqMin        = 35f;
+    private const float FreqMax        = 80f;
 
 
     private class GunState
@@ -43,9 +42,6 @@ internal class GunFire : Effect
 
     protected override void OnSettingsUpdated()
     {
-        _primaryFreqMinVolume = GetVolume(-15);
-        _primaryFreqMaxVolume = GetVolume(-6);
-        _secondFreqVolumeDiff = new Volume(6);
     }
 
     protected override void Write(float[] buffer, int offset, int count)
@@ -78,42 +74,99 @@ internal class GunFire : Effect
 
             float expectedUpdateRate  = 50f / (gun.RPM / 60f);
             int   maxDiffBetweenShots = (int)Math.Ceiling(expectedUpdateRate);
-            if ((int)(simTime.Tick - state.LastFired.Tick) - 1 >= maxDiffBetweenShots)
-            {
-                state.Firing     = false;
-                state.LastPlayed = default;
-                continue;
-            }
 
+            if ((int)(simTime.Tick - state.LastFired.Tick) - 1 < maxDiffBetweenShots)
+                continue;
+
+            // If too much time has passed since we've received a packet saying this gun is firing, turn it off
+            state.Firing     = false;
+            state.LastPlayed = default;
+        }
+
+        for (int i = 0; i < _gunStates.Count; i++)
+        {
+            var gun   = _guns[i];
+            var state = _gunStates[i];
+
+            // Skip any guns that aren't firing or have been aggregated already
+            if (!state.Firing || _aggregated[i])
+                continue;
+
+            SimTime playAt;
             if (state.LastPlayed.Tick == 0)
             {
-                var playAt = new SimTime(state.LastFired.AbsoluteTime + SimClock.SamplesPerTick);
-                AddImpulses(playAt, state, gun.SqrKineticEnergy, _distances[i]);
+                // If this gun hasn't played an effect yet, queue it up in the future from when it was last fired
+                playAt = new SimTime(state.LastFired.AbsoluteTime + SimClock.SamplesPerTick);
             }
             else if (simTime.AbsoluteTime - state.LastPlayed.AbsoluteTime - SimClock.SamplesPerTick
                    > gun.SamplesBetweenShots)
             {
-                var playAt = new SimTime(state.LastPlayed.AbsoluteTime + gun.SamplesBetweenShots);
-                AddImpulses(playAt, state, gun.SqrKineticEnergy, _distances[i]);
+                // If this gun has played an effect already and it's time to queue another effect up, add it in the
+                // future from when it was last played
+                playAt = new SimTime(state.LastPlayed.AbsoluteTime + gun.SamplesBetweenShots);
             }
+            else
+                continue;
+
+            // Calculate the frequencies and amplitudes for this gun based on its kinetic energy
+            float keRatio = (gun.RtKineticEnergy - MinRtKineticEnergy) / (MaxRtKineticEnergy - MinRtKineticEnergy);
+            float freq   = FreqMin + (1 - keRatio) * (FreqMax - FreqMin);
+            float ampTotal = CalculateAmplitude(gun.RtKineticEnergy, freq,  _distances[i]);
+
+            // Search for any other identical guns that are also firing at the same time and aggregate them
+            int aggregatedCount = 1;
+            for (int j = i + 1; j < _gunStates.Count; j++)
+            {
+                var otherState = _gunStates[j];
+                if (_aggregated[j]
+                 || !state.Firing
+                 || gun                           != _guns[j]
+                 || state.LastFired.AbsoluteTime  != otherState.LastFired.AbsoluteTime
+                 || state.LastPlayed.AbsoluteTime != otherState.LastPlayed.AbsoluteTime)
+                    continue;
+
+                // Mark this gun as aggregated, increase count, and set LastPlayed
+                _aggregated[j] = true;
+                aggregatedCount++;
+                otherState.LastPlayed = playAt;
+
+                // Determine the amplitudes this gun would add at full volume given its distance and add to the sum
+                ampTotal += CalculateAmplitude(gun.RtKineticEnergy, freq,  _distances[j]);
+            }
+
+            // Divide the sum by the square root of the number of guns simultaneously firing
+            // This gives the following effect
+            // 1 gun  - 1.00x
+            // 2 guns - 1.19x
+            // 3 guns - 1.31x
+            // ...
+            // 8 guns - 1.68x
+            float divisor      = MathF.Pow(aggregatedCount, 6 / 8f);
+            float ampWeighted = ampTotal / divisor;
+
+            state.LastPlayed = playAt;
+            Console.WriteLine(aggregatedCount);
+
+            // Add the impulse generator for the aggregated guns
+            _impulseGenerators.Add(new TimedImpulseGenerator(playAt, freq, ampWeighted, 3, 3));
+        }
+
+        // Reset the aggregated array
+        for (int i = 0; i < _aggregated.Count; i++)
+        {
+            _aggregated[i] = false;
         }
     }
 
-    private void AddImpulses(SimTime playAt, GunState state, float sqrKe, float distance)
+    private float CalculateAmplitude(float     rtKE,
+                                     float     freq,
+                                     float     distance)
     {
-        float keRatio = (sqrKe - MinSqrKineticEnergy) / (MaxSqrKineticEnergy - MinSqrKineticEnergy);
-        float freq1   = FreqMin + (1 - keRatio) * (FreqMax - FreqMin);
-        float amp1 = _primaryFreqMinVolume.Amplitude
-                   + keRatio * (_primaryFreqMaxVolume.Amplitude - _primaryFreqMinVolume.Amplitude);
-        float freq2 = freq1 * SecondFreqMult;
-        float amp2  = amp1  * _secondFreqVolumeDiff.Amplitude;
-
-        amp1 = Attenuate(freq1, amp1, distance);
-        amp2 = Attenuate(freq2, amp2, distance);
-
-        _impulseGenerators.Add(new TimedImpulseGenerator(playAt, freq1, amp1, 3, 2));
-        _impulseGenerators.Add(new TimedImpulseGenerator(playAt, freq2, amp2, 6, 4));
-        state.LastPlayed = playAt;
+        float amp = rtKE / MaxRtKineticEnergy * Volume.Amplitude;
+        // Doesn't make a lot of sense here, gun mounted right under the cockpit is further away than wing mounted due
+        // to the exit point at the nose.
+        // amp = Attenuate(freq, amp, distance);
+        return amp;
     }
 
     protected override void OnEventDataReceived(Event eventData)
@@ -127,6 +180,7 @@ internal class GunFire : Effect
                     _guns.Clear();
                     _gunStates.Clear();
                     _distances.Clear();
+                    _aggregated.Clear();
                 }
 
                 _aircraftName = aircraftName.Name;
@@ -138,6 +192,7 @@ internal class GunFire : Effect
                     _guns.Add(default!);
                     _gunStates.Add(new GunState());
                     _distances.Add(default);
+                    _aggregated.Add(false);
                 }
 
                 var gun = Audio.Database.GetGun(new GunID(_aircraftName, gunData.Index, gunData.Velocity,
