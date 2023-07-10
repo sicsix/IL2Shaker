@@ -1,11 +1,11 @@
 OutputDevice: Speakers (High Definition Audio Device)
-Latency: 30
+Latency: 50
 MasterVolume:
   Enabled: true
   Value: -3
 Engine:
   Enabled: true
-  Value: -18
+  Value: -21
 LandingGear:
   Enabled: true
   Value: -12
@@ -26,11 +26,11 @@ HitsReceived:
   Value: -12
 Gunfire:
   Enabled: true
-  Value: -15
+  Value: -8
 OrdnanceRelease:
   Enabled: true
   Value: 0
-DebugLogging: false
+DebugLogging: true
 LowPassFilter:
   Enabled: true
   Value: 120
