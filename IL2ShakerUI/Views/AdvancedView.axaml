@@ -56,15 +56,15 @@
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Audio Latency:" />
             <TextBlock Grid.Row="1" Grid.Column="1" Classes="Right"
                        Text="{Binding #Latency.Value, StringFormat='{}{0}ms'}" />
-            <Slider Grid.Row="1" Grid.Column="2" Name="Latency" Value="{Binding Settings.Latency}" Minimum="20"
-                    Maximum="200" />
+            <Slider Grid.Row="1" Grid.Column="2" Name="Latency" Value="{Binding Settings.Latency}" Minimum="30"
+                    Maximum="100" />
 
             <!-- Low Pass Filter -->
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Low Pass Filter:" />
             <TextBlock Grid.Row="2" Grid.Column="1" Classes="Right"
                        Text="{Binding #LowPassFilter.Value, StringFormat='{}{0}Hz'}" />
             <Slider Grid.Row="2" Grid.Column="2" Name="LowPassFilter"
-                    Value="{Binding Settings.((models:EffectSettings)LowPassFilter).Value}" Minimum="50" Maximum="180" />
+                    Value="{Binding Settings.((models:EffectSettings)LowPassFilter).Value}" Minimum="50" Maximum="300" />
             <CheckBox Grid.Row="2" Grid.Column="3"
                       IsChecked="{CompiledBinding Settings.((models:EffectSettings)LowPassFilter).Enabled}" />
 

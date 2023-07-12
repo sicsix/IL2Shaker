@@ -30,17 +30,26 @@ internal class SimClock
 
     public SimSpeed UpdateTick(uint tick, int latency, bool paused)
     {
-        var simSpeed = GetSimSpeed(tick, paused);
+        var simSpeed    = GetSimSpeed(tick, paused);
         var currentTime = GetLatencyOffsetSimTime(tick, latency);
-        
+
         // If the simspeed isn't 1 just keep setting the tick to the current game tick, we won't be playing audio
         if (simSpeed != SimSpeed.x1)
             Time = currentTime;
-        else if (Math.Abs(Time.AbsoluteTime - currentTime.AbsoluteTime) > SampleRate * latency * 0.001f + SamplesPerHalfTick)
+        else if (Time.AbsoluteTime < currentTime.AbsoluteTime - SamplesPerTick)
         {
-            // Otherwise we should be keeping a good sync with SimTime, correct and notify if too far out
-            Logging.At(this).Warning("Correcting out of sync time - {Tick}:{SubTick} => {NewTick}:{NewSubTick}",
-                                     Time.Tick, Time.SubTick, currentTime.Tick, currentTime.SubTick);
+            // We are too far behind, need to reset
+            Logging.At(this)
+               .Warning("Correcting out of sync time, delayed - {Tick}:{SubTick} => {NewTick}:{NewSubTick}", Time.Tick,
+                        Time.SubTick, currentTime.Tick, currentTime.SubTick);
+            Time = currentTime;
+        }
+        else if (Time.Tick >= tick)
+        {
+            // We are too far in front, need to reset
+            Logging.At(this)
+               .Warning("Correcting out of sync time, advanced - {Tick}:{SubTick} => {NewTick}:{NewSubTick}", Time.Tick,
+                        Time.SubTick, currentTime.Tick, currentTime.SubTick);
             Time = currentTime;
         }
 
@@ -49,7 +58,7 @@ internal class SimClock
 
     private static SimTime GetLatencyOffsetSimTime(uint tick, int latency)
     {
-        return new SimTime((long)tick * SamplesPerTick - (long)(latency * 0.001f * SampleRate) - SamplesPerHalfTick);
+        return new SimTime((long)tick * SamplesPerTick - (long)(latency * 0.001f * SampleRate) - SamplesPerTick);
     }
 
     public void Increment(int samples)
