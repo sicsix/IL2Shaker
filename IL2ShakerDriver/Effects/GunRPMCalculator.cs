@@ -49,14 +49,14 @@ internal class GunRPMCalculator
         _lastFiredTick[index] = tick;
     }
 
-    public void CalculateIfStopped(SimTime simTime, int index)
+    public void CalculateIfStopped(uint tick, int index)
     {
         uint lastFiredTick = _lastFiredTick[index];
         if (lastFiredTick == 0)
             return;
 
         // If we haven't fired a shot for 1 second call it done
-        if ((int)(simTime.Tick - lastFiredTick) > SimClock.UpdateRate * 2)
+        if ((int)(tick - lastFiredTick) > SimClock.UpdateRate * 2)
             CalculateRPM(index);
     }
 

@@ -26,7 +26,8 @@ internal class Flaps : Effect
 
     protected override void Write(float[] buffer, int offset, int count)
     {
-        if (Audio.SimSpeed != SimSpeed.x1)
+        // Wait 200ms before reducing the output when not at x1 to avoid hiccups due to the sim struggling
+        if (Audio.TicksAtAbnormalSpeed > 10)
             _harmonicsGenerator.SetTarget(0, Vector4.Zero, 0.1f);
         _harmonicsGenerator.Write(buffer, offset, count, Audio.SimClock.Time);
     }

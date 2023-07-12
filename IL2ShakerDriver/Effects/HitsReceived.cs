@@ -26,7 +26,7 @@ internal class HitsReceived : Effect
     {
         for (int i = 0; i < _impulseGenerators.Count; i++)
         {
-            if (Audio.SimSpeed != SimSpeed.x1 || _impulseGenerators[i].Complete)
+            if (_impulseGenerators[i].Complete)
             {
                 _impulseGenerators.RemoveAt(i--);
                 continue;

@@ -9,15 +9,16 @@ namespace IL2ShakerDriver;
 
 internal class Audio : ISampleProvider
 {
-    public bool       Enabled      { get; private set; }
-    public Volume     MasterVolume { get; private set; }
-    public WaveFormat WaveFormat   { get; }
-    public SimClock   SimClock     { get; } = new();
-    public Database   Database     { get; }
-    public MMDevice?  OutputDevice { get; private set; }
-    public int        Latency      { get; private set; }
-    public SimSpeed   SimSpeed     { get; private set; }
-    public object     Lock         { get; } = new();
+    public bool       Enabled              { get; private set; }
+    public Volume     MasterVolume         { get; private set; }
+    public WaveFormat WaveFormat           { get; }
+    public SimClock   SimClock             { get; } = new();
+    public Database   Database             { get; }
+    public MMDevice?  OutputDevice         { get; private set; }
+    public int        Latency              { get; private set; }
+    public SimSpeed   SimSpeed             { get; private set; }
+    public int        TicksAtAbnormalSpeed { get; private set; }
+    public object     Lock                 { get; } = new();
 
 
     private readonly List<Effect>    _effects = new();
@@ -100,14 +101,6 @@ internal class Audio : ISampleProvider
             Thread.Sleep(10);
             if (token.IsCancellationRequested)
                 break;
-
-            lock (Lock)
-            {
-                for (int i = 0; i < _effects.Count; i++)
-                {
-                    _effects[i].Update(SimClock.Time);
-                }
-            }
         }
     }
 
@@ -160,6 +153,7 @@ internal class Audio : ISampleProvider
             Logging.At(this).Debug("Sim speed {Speed}{State}", speed, state);
         }
 
+        TicksAtAbnormalSpeed = simSpeed == SimSpeed.x1 ? 0 : TicksAtAbnormalSpeed + 1;
         SimSpeed = simSpeed;
     }
 

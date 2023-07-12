@@ -82,18 +82,6 @@ internal abstract class Effect : ISampleProvider
 
     protected abstract void Write(float[] buffer, int offset, int count);
 
-    public void Update(SimTime simTime)
-    {
-        lock (Lock)
-        {
-            OnUpdate(simTime);
-        }
-    }
-
-    protected virtual void OnUpdate(SimTime simTime)
-    {
-    }
-
     private void EventDataReceived(Event eventData)
     {
         lock (Lock)

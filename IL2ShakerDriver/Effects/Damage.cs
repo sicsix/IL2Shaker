@@ -37,18 +37,4 @@ internal class Damage : Effect
             _count++;
         }
     }
-
-    protected override void OnUpdate(SimTime simTime)
-    {
-        if (simTime.Tick > _damageTick && _strength != 0)
-        {
-            Logging.At(this)
-               .Debug("Damaged {{ Tick = {Tick}, Offset = {Offset}, Strength = {Strength}, Count = {Count} }}",
-                      _damageTick, _damageOffset, _strength, _count);
-            _damageTick   = 0;
-            _damageOffset = Vector3.Zero;
-            _strength     = 0;
-            _count        = 0;
-        }
-    }
 }

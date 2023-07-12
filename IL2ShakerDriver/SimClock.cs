@@ -4,14 +4,15 @@ namespace IL2ShakerDriver;
 
 internal class SimClock
 {
-    public const int  SampleRate     = 44100;
-    public const uint UpdateRate     = 50;
-    public const uint SamplesPerTick = SampleRate / UpdateRate;
-    public const uint MsPerTick      = 1000       / UpdateRate;
+    public const int  SampleRate         = 44100;
+    public const uint UpdateRate         = 50;
+    public const uint SamplesPerTick     = SampleRate     / UpdateRate;
+    public const uint SamplesPerHalfTick = SamplesPerTick / 2;
+    public const uint MsPerTick          = 1000           / UpdateRate;
 
-    private static readonly float[] _simSpeedRatios = { 0, 1 / 32f, 1 / 16f, 1 / 8f, 1 / 4f, 1 / 2f, 1f, 2f, 4f, 8f };
+    private static readonly float[] SimSpeedRatios = { 0, 1 / 32f, 1 / 16f, 1 / 8f, 1 / 4f, 1 / 2f, 1f, 2f, 4f, 8f };
 
-    private static readonly float[] _simSpeedMsTick =
+    private static readonly float[] SimSpeedMsTick =
     {
         float.PositiveInfinity,
         32f * MsPerTick,
@@ -30,20 +31,25 @@ internal class SimClock
     public SimSpeed UpdateTick(uint tick, int latency, bool paused)
     {
         var simSpeed = GetSimSpeed(tick, paused);
-
+        var currentTime = GetLatencyOffsetSimTime(tick, latency);
+        
         // If the simspeed isn't 1 just keep setting the tick to the current game tick, we won't be playing audio
         if (simSpeed != SimSpeed.x1)
-            Time = new SimTime(tick, 0);
-        else if (Math.Abs(Time.AbsoluteTime - tick * SamplesPerTick) >= SamplesPerTick + latency * 0.001f * SampleRate)
+            Time = currentTime;
+        else if (Math.Abs(Time.AbsoluteTime - currentTime.AbsoluteTime) > SampleRate * latency * 0.001f + SamplesPerHalfTick)
         {
-            // Otherwise we should be keeping a good sync with SimTime, correct and notify if more than
-            // 1 tick + latency out of sync
+            // Otherwise we should be keeping a good sync with SimTime, correct and notify if too far out
             Logging.At(this).Warning("Correcting out of sync time - {Tick}:{SubTick} => {NewTick}:{NewSubTick}",
-                                     Time.Tick, Time.SubTick, tick, 0);
-            Time = new SimTime(tick, 0);
+                                     Time.Tick, Time.SubTick, currentTime.Tick, currentTime.SubTick);
+            Time = currentTime;
         }
 
         return simSpeed;
+    }
+
+    private static SimTime GetLatencyOffsetSimTime(uint tick, int latency)
+    {
+        return new SimTime((long)tick * SamplesPerTick - (long)(latency * 0.001f * SampleRate) - SamplesPerHalfTick);
     }
 
     public void Increment(int samples)
@@ -79,7 +85,7 @@ internal class SimClock
         _prevTime = time;
 
         // Discard if the time is large or too small - probably due to unpausing
-        if (msDiff > _simSpeedMsTick[(int)SimSpeed.x1_32] * 1.2f || msDiff < _simSpeedMsTick[(int)SimSpeed.x1] * 0.8f)
+        if (msDiff > SimSpeedMsTick[(int)SimSpeed.x1_32] * 1.2f || msDiff < SimSpeedMsTick[(int)SimSpeed.x1] * 0.8f)
             return _prevSpeed;
 
         // Calculate difference in time thas this and previous tick were received
@@ -112,7 +118,7 @@ internal class SimClock
         int   closest   = 1;
         for (int i = (int)SimSpeed.x1_32; i <= (int)SimSpeed.x1; i++)
         {
-            float diff = MathF.Abs(_simSpeedMsTick[i] - avgMs);
+            float diff = MathF.Abs(SimSpeedMsTick[i] - avgMs);
             if (diff > minMsDiff)
                 continue;
             minMsDiff = diff;
