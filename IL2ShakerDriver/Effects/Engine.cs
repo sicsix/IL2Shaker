@@ -39,7 +39,8 @@ internal class Engine : Effect
     {
         for (int i = 0; i < _engines.Count; i++)
         {
-            if (Audio.SimSpeed != SimSpeed.x1)
+            // Wait 200ms before reducing the output when not at x1 to avoid hiccups due to the sim struggling
+            if (Audio.TicksAtAbnormalSpeed > 10)
                 _engines[i].SetTarget(0, Vector4.Zero, 0.1f);
             _engines[i].Write(buffer, offset, count, Audio.SimClock.Time);
         }

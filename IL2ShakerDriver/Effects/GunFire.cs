@@ -2,6 +2,7 @@
 using IL2ShakerDriver.Samplers;
 using IL2TelemetryRelay;
 using IL2TelemetryRelay.Events;
+using IL2TelemetryRelay.State;
 using NAudio.Wave;
 using Serilog;
 using Serilog.Events;
@@ -20,12 +21,12 @@ internal class GunFire : Effect
     private string _aircraftName = string.Empty;
 
     // 6th root of the minimum and maximum kinetic energy of all guns in the game, brings everything a bit closer together
-    private const float MinRtKineticEnergy  = 1.318896715f;
-    private const float MaxRtKineticEnergy  = 3.687686192f;
+    private const float MinRtKineticEnergy = 1.318896715f;
+    private const float MaxRtKineticEnergy = 3.687686192f;
 
     // 40 might sound a bit better here, needs more testing
-    private const float FreqMin        = 35f;
-    private const float FreqMax        = 80f;
+    private const float FreqMin = 35f;
+    private const float FreqMax = 80f;
 
 
     private class GunState
@@ -40,15 +41,11 @@ internal class GunFire : Effect
         _gunRPMCalculator = new GunRPMCalculator(_guns);
     }
 
-    protected override void OnSettingsUpdated()
-    {
-    }
-
     protected override void Write(float[] buffer, int offset, int count)
     {
         for (int i = 0; i < _impulseGenerators.Count; i++)
         {
-            if (Audio.SimSpeed != SimSpeed.x1 || _impulseGenerators[i].Complete)
+            if (_impulseGenerators[i].Complete)
             {
                 _impulseGenerators.RemoveAt(i--);
                 continue;
@@ -58,14 +55,14 @@ internal class GunFire : Effect
         }
     }
 
-    protected override void OnUpdate(SimTime simTime)
+    protected override void OnStateDataReceived(StateData stateData)
     {
         for (int i = 0; i < _gunStates.Count; i++)
         {
             var state = _gunStates[i];
 
             if (Log.IsEnabled(LogEventLevel.Debug))
-                _gunRPMCalculator.CalculateIfStopped(simTime, i);
+                _gunRPMCalculator.CalculateIfStopped(stateData.Tick, i);
 
             if (!state.Firing)
                 continue;
@@ -75,7 +72,7 @@ internal class GunFire : Effect
             float expectedUpdateRate  = 50f / (gun.RPM / 60f);
             int   maxDiffBetweenShots = (int)Math.Ceiling(expectedUpdateRate);
 
-            if ((int)(simTime.Tick - state.LastFired.Tick) - 1 < maxDiffBetweenShots)
+            if ((int)(stateData.Tick - state.LastFired.Tick) <= maxDiffBetweenShots)
                 continue;
 
             // If too much time has passed since we've received a packet saying this gun is firing, turn it off
@@ -96,9 +93,10 @@ internal class GunFire : Effect
             if (state.LastPlayed.Tick == 0)
             {
                 // If this gun hasn't played an effect yet, queue it up in the future from when it was last fired
-                playAt = new SimTime(state.LastFired.AbsoluteTime + SimClock.SamplesPerTick);
+                playAt = new SimTime(state.LastFired.AbsoluteTime);
             }
-            else if (simTime.AbsoluteTime - state.LastPlayed.AbsoluteTime - SimClock.SamplesPerTick
+            else if ((int)((stateData.Tick - state.LastPlayed.Tick) * SimClock.SamplesPerTick)
+                   - (int)state.LastPlayed.SubTick
                    > gun.SamplesBetweenShots)
             {
                 // If this gun has played an effect already and it's time to queue another effect up, add it in the
@@ -109,9 +107,9 @@ internal class GunFire : Effect
                 continue;
 
             // Calculate the frequencies and amplitudes for this gun based on its kinetic energy
-            float keRatio = (gun.RtKineticEnergy - MinRtKineticEnergy) / (MaxRtKineticEnergy - MinRtKineticEnergy);
-            float freq   = FreqMin + (1 - keRatio) * (FreqMax - FreqMin);
-            float ampTotal = CalculateAmplitude(gun.RtKineticEnergy, freq,  _distances[i]);
+            float keRatio  = (gun.RtKineticEnergy - MinRtKineticEnergy) / (MaxRtKineticEnergy - MinRtKineticEnergy);
+            float freq     = FreqMin + (1 - keRatio) * (FreqMax - FreqMin);
+            float ampTotal = CalculateAmplitude(gun.RtKineticEnergy, freq, _distances[i]);
 
             // Search for any other identical guns that are also firing at the same time and aggregate them
             int aggregatedCount = 1;
@@ -131,7 +129,7 @@ internal class GunFire : Effect
                 otherState.LastPlayed = playAt;
 
                 // Determine the amplitudes this gun would add at full volume given its distance and add to the sum
-                ampTotal += CalculateAmplitude(gun.RtKineticEnergy, freq,  _distances[j]);
+                ampTotal += CalculateAmplitude(gun.RtKineticEnergy, freq, _distances[j]);
             }
 
             // Divide the sum by the square root of the number of guns simultaneously firing
@@ -141,12 +139,11 @@ internal class GunFire : Effect
             // 3 guns - 1.31x
             // ...
             // 8 guns - 1.68x
-            float divisor      = MathF.Pow(aggregatedCount, 6 / 8f);
+            float divisor     = MathF.Pow(aggregatedCount, 6 / 8f);
             float ampWeighted = ampTotal / divisor;
-
+            
             state.LastPlayed = playAt;
-            Console.WriteLine(aggregatedCount);
-
+            
             // Add the impulse generator for the aggregated guns
             _impulseGenerators.Add(new TimedImpulseGenerator(playAt, freq, ampWeighted, 3, 3));
         }
@@ -158,9 +155,7 @@ internal class GunFire : Effect
         }
     }
 
-    private float CalculateAmplitude(float     rtKE,
-                                     float     freq,
-                                     float     distance)
+    private float CalculateAmplitude(float rtKE, float freq, float distance)
     {
         float amp = rtKE / MaxRtKineticEnergy * Volume.Amplitude;
         // Doesn't make a lot of sense here, gun mounted right under the cockpit is further away than wing mounted due
@@ -203,7 +198,6 @@ internal class GunFire : Effect
                 _distances[gunData.Index] = gunData.Offset.Length();
                 break;
             case GunFiredEvent gunFired:
-
                 if (_gunStates.Count == 0)
                     break;
                 _gunStates[gunFired.Index].Firing = true;

@@ -29,8 +29,9 @@ internal class TimedImpulseGenerator : ISampleWriter
 
     public void Write(float[] buffer, int offset, int count, SimTime simTime)
     {
-        int writeStart = Math.Max(0, (int)(_start.AbsoluteTime - simTime.AbsoluteTime));
-        int writeEnd   = Math.Min(count, _samplesRemaining);
+        int timeOffset = (int)(_start.AbsoluteTime - simTime.AbsoluteTime);
+        int writeStart = Math.Max(0, timeOffset);
+        int writeEnd   = Math.Min(count, timeOffset + _samplesRemaining);
 
         for (int i = writeStart; i < writeEnd; i++)
         {

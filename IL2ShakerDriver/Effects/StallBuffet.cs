@@ -19,7 +19,8 @@ internal class StallBuffet : Effect
 
     protected override void Write(float[] buffer, int offset, int count)
     {
-        if (Audio.SimSpeed != SimSpeed.x1)
+        // Wait 200ms before reducing the output when not at x1 to avoid hiccups due to the sim struggling
+        if (Audio.TicksAtAbnormalSpeed > 10)
             _waveGenerator.SetTarget(0, 0, TransitionTime);
         _waveGenerator.Write(buffer, offset, count, Audio.SimClock.Time);
     }
