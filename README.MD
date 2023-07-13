@@ -14,6 +14,8 @@ IL2Shaker currently has these effects modelled:
 * Landing gear and flaps extension and retraction.
 * Received hits - bigger hits mean more volume and lower frequencies.
 * Impacts both midair and ground.
+* Impacts both midair and ground.
+* Roll rate and G forces give feedback to provide some extra oomph.
 
 ## Usage
 
@@ -21,6 +23,12 @@ First, edit `startup.cfg` in the `data/` folder in your IL-2 installation direct
 
 ```
 [KEY = telemetrydevice]
+    addr = "127.0.0.1"
+    decimation = 1
+    enable = true
+    port = 29373
+[END]
+[KEY = motiondevice]
     addr = "127.0.0.1"
     decimation = 1
     enable = true
