@@ -14,29 +14,23 @@ internal class Settings : ReactiveObject, ISettings
     [Reactive]
     public int Latency { get; set; }
 
-    public IEffectSettings MasterVolume { get; set; }
-
-    public IEffectSettings Engine { get; set; }
-
-    public IEffectSettings LandingGear { get; set; }
-    public IEffectSettings Bumps       { get; set; }
-    public IEffectSettings Flaps       { get; set; }
-
-    public IEffectSettings StallBuffet { get; set; }
-
-    public IEffectSettings Impacts { get; set; }
-
-    public IEffectSettings HitsReceived { get; set; }
-
-    public IEffectSettings Gunfire { get; set; }
-
+    public IEffectSettings MasterVolume    { get; set; }
+    public IEffectSettings Engine          { get; set; }
+    public IEffectSettings LandingGear     { get; set; }
+    public IEffectSettings Bumps           { get; set; }
+    public IEffectSettings Flaps           { get; set; }
+    public IEffectSettings RollRate        { get; set;  }
+    public IEffectSettings GForces         { get; set;  }
+    public IEffectSettings StallBuffet     { get; set; }
+    public IEffectSettings Impacts         { get; set; }
+    public IEffectSettings HitsReceived    { get; set; }
+    public IEffectSettings Gunfire         { get; set; }
     public IEffectSettings OrdnanceRelease { get; set; }
 
     [Reactive]
     public bool DebugLogging { get; set; }
 
-    public IEffectSettings LowPassFilter { get; set; }
-
+    public IEffectSettings LowPassFilter  { get; set; }
     public IEffectSettings HighPassFilter { get; set; }
 
     public Settings()
@@ -48,6 +42,8 @@ internal class Settings : ReactiveObject, ISettings
         LandingGear     = new EffectSettings();
         Bumps           = new EffectSettings();
         Flaps           = new EffectSettings();
+        RollRate        = new EffectSettings();
+        GForces         = new EffectSettings();
         StallBuffet     = new EffectSettings();
         Impacts         = new EffectSettings();
         HitsReceived    = new EffectSettings();

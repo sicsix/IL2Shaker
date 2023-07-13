@@ -14,10 +14,16 @@ Bumps:
   Value: -9
 Flaps:
   Enabled: true
-  Value: -12
+  Value: -15
+RollRate:
+  Enabled: true
+  Value: -18
+GForces:
+  Enabled: true
+  Value: -15
 StallBuffet:
   Enabled: true
-  Value: 0
+  Value: -9
 Impacts:
   Enabled: true
   Value: 0
@@ -26,14 +32,14 @@ HitsReceived:
   Value: -12
 Gunfire:
   Enabled: true
-  Value: -8
+  Value: -10
 OrdnanceRelease:
   Enabled: true
   Value: 0
 DebugLogging: true
 LowPassFilter:
-  Enabled: true
+  Enabled: false
   Value: 120
 HighPassFilter:
-  Enabled: true
+  Enabled: false
   Value: 10

@@ -27,6 +27,8 @@ internal class Audio : ISampleProvider
     private readonly LandingGear     _landingGear;
     private readonly Bumps           _bumps;
     private readonly Flaps           _flaps;
+    private readonly RollRate        _rollRate;
+    private readonly GForces         _gForces;
     private readonly StallBuffet     _stallBuffet;
     private readonly Impacts         _impacts;
     private readonly HitsReceived    _hitsReceived;
@@ -47,7 +49,9 @@ internal class Audio : ISampleProvider
         _landingGear     = new LandingGear(_engine, this);
         _bumps           = new Bumps(_landingGear, this);
         _flaps           = new Flaps(_bumps, this);
-        _stallBuffet     = new StallBuffet(_flaps, this);
+        _rollRate        = new RollRate(_flaps, this);
+        _gForces         = new GForces(_rollRate, this);
+        _stallBuffet     = new StallBuffet(_gForces, this);
         _impacts         = new Impacts(_stallBuffet, this);
         _hitsReceived    = new HitsReceived(_impacts, this);
         _gunFire         = new GunFire(_hitsReceived, this);
@@ -59,6 +63,8 @@ internal class Audio : ISampleProvider
             _landingGear,
             _bumps,
             _flaps,
+            _rollRate,
+            _gForces,
             _stallBuffet,
             _impacts,
             _hitsReceived,
@@ -124,6 +130,8 @@ internal class Audio : ISampleProvider
         _landingGear.UpdateSettings(settings.LandingGear);
         _bumps.UpdateSettings(settings.Bumps);
         _flaps.UpdateSettings(settings.Flaps);
+        _rollRate.UpdateSettings(settings.RollRate);
+        _gForces.UpdateSettings(settings.GForces);
         _stallBuffet.UpdateSettings(settings.StallBuffet);
         _impacts.UpdateSettings(settings.Impacts);
         _hitsReceived.UpdateSettings(settings.HitsReceived);
@@ -154,7 +162,7 @@ internal class Audio : ISampleProvider
         }
 
         TicksAtAbnormalSpeed = simSpeed == SimSpeed.x1 ? 0 : TicksAtAbnormalSpeed + 1;
-        SimSpeed = simSpeed;
+        SimSpeed             = simSpeed;
     }
 
     public int Read(float[] buffer, int offset, int count)

@@ -47,7 +47,7 @@
 
     <Grid ShowGridLines="False" ColumnDefinitions="220,*,220">
         <Grid Grid.Column="1" ShowGridLines="False" ColumnDefinitions="200,60,340, 60"
-              RowDefinitions="64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64"
+              RowDefinitions="64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64"
               HorizontalAlignment="Center"
               VerticalAlignment="Center">
 
@@ -100,50 +100,68 @@
                     Value="{Binding Settings.((models:EffectSettings)Flaps).Value}" />
             <CheckBox Grid.Row="5" Grid.Column="3"
                       IsChecked="{Binding Settings.((models:EffectSettings)Flaps).Enabled}" />
+            
+            <!-- Roll Rate -->
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Roll Rate:" />
+            <TextBlock Grid.Row="6" Grid.Column="1" Classes="Right"
+                       Text="{Binding #RollRate.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="6" Grid.Column="2" Name="RollRate"
+                    Value="{Binding Settings.((models:EffectSettings)RollRate).Value}" />
+            <CheckBox Grid.Row="6" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)RollRate).Enabled}" />
+            
+            <!-- G Forces -->
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="G Forces:" />
+            <TextBlock Grid.Row="7" Grid.Column="1" Classes="Right"
+                       Text="{Binding #GForces.Value, StringFormat='{}{0}dB'}" />
+            <Slider Grid.Row="7" Grid.Column="2" Name="GForces"
+                    Value="{Binding Settings.((models:EffectSettings)GForces).Value}" />
+            <CheckBox Grid.Row="7" Grid.Column="3"
+                      IsChecked="{Binding Settings.((models:EffectSettings)GForces).Enabled}" />
 
             <!-- Stall Buffet -->
-            <TextBlock Grid.Row="6" Grid.Column="0" Text="Stall Buffet:" />
-            <TextBlock Grid.Row="6" Grid.Column="1" Classes="Right"
+            <TextBlock Grid.Row="8" Grid.Column="0" Text="Stall Buffet:" />
+            <TextBlock Grid.Row="8" Grid.Column="1" Classes="Right"
                        Text="{Binding #StallBuffet.Value, StringFormat='{}{0}dB'}" />
-            <Slider Grid.Row="6" Grid.Column="2" Name="StallBuffet"
+            <Slider Grid.Row="8" Grid.Column="2" Name="StallBuffet"
                     Value="{Binding Settings.((models:EffectSettings)StallBuffet).Value}" />
-            <CheckBox Grid.Row="6" Grid.Column="3"
+            <CheckBox Grid.Row="8" Grid.Column="3"
                       IsChecked="{Binding Settings.((models:EffectSettings)StallBuffet).Enabled}" />
 
             <!-- Impacts -->
-            <TextBlock Grid.Row="7" Grid.Column="0" Text="Impacts:" />
-            <TextBlock Grid.Row="7" Grid.Column="1" Classes="Right"
+            <TextBlock Grid.Row="9" Grid.Column="0" Text="Impacts:" />
+            <TextBlock Grid.Row="9" Grid.Column="1" Classes="Right"
                        Text="{Binding #Impacts.Value, StringFormat='{}{0}dB'}" />
-            <Slider Grid.Row="7" Grid.Column="2" Name="Impacts"
+            <Slider Grid.Row="9" Grid.Column="2" Name="Impacts"
                     Value="{Binding Settings.((models:EffectSettings)Impacts).Value}" />
-            <CheckBox Grid.Row="7" Grid.Column="3"
+            <CheckBox Grid.Row="9" Grid.Column="3"
                       IsChecked="{Binding Settings.((models:EffectSettings)Impacts).Enabled}" />
 
             <!-- Hits Received -->
-            <TextBlock Grid.Row="8" Grid.Column="0" Text="Hits Received:" />
-            <TextBlock Grid.Row="8" Grid.Column="1" Classes="Right"
+            <TextBlock Grid.Row="10" Grid.Column="0" Text="Hits Received:" />
+            <TextBlock Grid.Row="10" Grid.Column="1" Classes="Right"
                        Text="{Binding #HitsReceived.Value, StringFormat='{}{0}dB'}" />
-            <Slider Grid.Row="8" Grid.Column="2" Name="HitsReceived"
+            <Slider Grid.Row="10" Grid.Column="2" Name="HitsReceived"
                     Value="{Binding Settings.((models:EffectSettings)HitsReceived).Value}" />
-            <CheckBox Grid.Row="8" Grid.Column="3"
+            <CheckBox Grid.Row="10" Grid.Column="3"
                       IsChecked="{Binding Settings.((models:EffectSettings)HitsReceived).Enabled}" />
 
             <!-- Gunfire -->
-            <TextBlock Grid.Row="9" Grid.Column="0" Text="Gunfire:" />
-            <TextBlock Grid.Row="9" Grid.Column="1" Classes="Right"
+            <TextBlock Grid.Row="11" Grid.Column="0" Text="Gunfire:" />
+            <TextBlock Grid.Row="11" Grid.Column="1" Classes="Right"
                        Text="{Binding #Gunfire.Value, StringFormat='{}{0}dB'}" />
-            <Slider Grid.Row="9" Grid.Column="2" Name="Gunfire"
+            <Slider Grid.Row="11" Grid.Column="2" Name="Gunfire"
                     Value="{Binding Settings.((models:EffectSettings)Gunfire).Value}" />
-            <CheckBox Grid.Row="9" Grid.Column="3"
+            <CheckBox Grid.Row="11" Grid.Column="3"
                       IsChecked="{Binding Settings.((models:EffectSettings)Gunfire).Enabled}" />
 
             <!-- Ordnance Release -->
-            <TextBlock Grid.Row="10" Grid.Column="0" Text="Ordnance Release:" />
-            <TextBlock Grid.Row="10" Grid.Column="1" Classes="Right"
+            <TextBlock Grid.Row="12" Grid.Column="0" Text="Ordnance Release:" />
+            <TextBlock Grid.Row="12" Grid.Column="1" Classes="Right"
                        Text="{Binding #OrdnanceRelease.Value, StringFormat='{}{0}dB'}" />
-            <Slider Grid.Row="10" Grid.Column="2" Name="OrdnanceRelease"
+            <Slider Grid.Row="12" Grid.Column="2" Name="OrdnanceRelease"
                     Value="{Binding Settings.((models:EffectSettings)OrdnanceRelease).Value}" />
-            <CheckBox Grid.Row="10" Grid.Column="3"
+            <CheckBox Grid.Row="12" Grid.Column="3"
                       IsChecked="{Binding Settings.((models:EffectSettings)OrdnanceRelease).Enabled}" />
         </Grid>
         <StackPanel Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal"
