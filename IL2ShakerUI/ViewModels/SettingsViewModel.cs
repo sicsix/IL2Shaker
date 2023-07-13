@@ -32,6 +32,8 @@ internal class SettingsViewModel : ViewModelBase
         ((EffectSettings)Settings.LandingGear).WhenAnyPropertyChanged().Subscribe(OnSettingsChanged!);
         ((EffectSettings)Settings.Bumps).WhenAnyPropertyChanged().Subscribe(OnSettingsChanged!);
         ((EffectSettings)Settings.Flaps).WhenAnyPropertyChanged().Subscribe(OnSettingsChanged!);
+        ((EffectSettings)Settings.RollRate).WhenAnyPropertyChanged().Subscribe(OnSettingsChanged!);
+        ((EffectSettings)Settings.GForces).WhenAnyPropertyChanged().Subscribe(OnSettingsChanged!);
         ((EffectSettings)Settings.StallBuffet).WhenAnyPropertyChanged().Subscribe(OnSettingsChanged!);
         ((EffectSettings)Settings.Impacts).WhenAnyPropertyChanged().Subscribe(OnSettingsChanged!);
         ((EffectSettings)Settings.HitsReceived).WhenAnyPropertyChanged().Subscribe(OnSettingsChanged!);
