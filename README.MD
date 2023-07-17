@@ -14,7 +14,6 @@ IL2Shaker currently has these effects modelled:
 * Landing gear and flaps extension and retraction.
 * Received hits - bigger hits mean more volume and lower frequencies.
 * Impacts both midair and ground.
-* Impacts both midair and ground.
 * Roll rate and G forces give feedback to provide some extra oomph.
 
 ## Usage
