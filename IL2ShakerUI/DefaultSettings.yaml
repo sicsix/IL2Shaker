@@ -5,7 +5,7 @@ MasterVolume:
   Value: -3
 Engine:
   Enabled: true
-  Value: -21
+  Value: -19
 LandingGear:
   Enabled: true
   Value: -12
@@ -17,10 +17,10 @@ Flaps:
   Value: -15
 RollRate:
   Enabled: true
-  Value: -18
+  Value: -15
 GForces:
   Enabled: true
-  Value: -15
+  Value: -12
 StallBuffet:
   Enabled: true
   Value: -9
@@ -36,7 +36,7 @@ Gunfire:
 OrdnanceRelease:
   Enabled: true
   Value: 0
-DebugLogging: true
+DebugLogging: false
 LowPassFilter:
   Enabled: false
   Value: 120

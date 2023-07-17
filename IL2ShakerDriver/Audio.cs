@@ -4,6 +4,7 @@ using IL2ShakerDriver.Samplers;
 using IL2TelemetryRelay.State;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 
 namespace IL2ShakerDriver;
 
@@ -21,30 +22,31 @@ internal class Audio : ISampleProvider
     public object     Lock                 { get; } = new();
 
 
-    private readonly List<Effect>    _effects = new();
-    private readonly ISampleProvider _chainStart;
-    private readonly Engine          _engine;
-    private readonly LandingGear     _landingGear;
-    private readonly Bumps           _bumps;
-    private readonly Flaps           _flaps;
-    private readonly RollRate        _rollRate;
-    private readonly GForces         _gForces;
-    private readonly StallBuffet     _stallBuffet;
-    private readonly Impacts         _impacts;
-    private readonly HitsReceived    _hitsReceived;
-    private readonly GunFire         _gunFire;
-    private readonly OrdnanceRelease _ordnanceRelease;
-    private readonly LowPassFilter   _lowPassFilter;
-    private readonly HighPassFilter  _highPassFilter;
-    private readonly ISampleProvider _chainEnd;
+    private readonly ISampleProvider            _chainStart;
+    private readonly Engine                     _engine;
+    private readonly LandingGear                _landingGear;
+    private readonly Bumps                      _bumps;
+    private readonly Flaps                      _flaps;
+    private readonly RollRate                   _rollRate;
+    private readonly GForces                    _gForces;
+    private readonly StallBuffet                _stallBuffet;
+    private readonly Impacts                    _impacts;
+    private readonly HitsReceived               _hitsReceived;
+    private readonly GunFire                    _gunFire;
+    private readonly OrdnanceRelease            _ordnanceRelease;
+    private readonly LowPassFilter              _lowPassFilter;
+    private readonly HighPassFilter             _highPassFilter;
+    private readonly MultiplexingSampleProvider _multiplexing;
+
+    private const int OutputChannelCount = 8;
 
     public Audio(Database database)
     {
         MasterVolume = new Volume(0);
-        WaveFormat   = WaveFormat.CreateIeeeFloatWaveFormat(SimClock.SampleRate, 1);
-        Database     = database;
+        var waveformat = WaveFormat.CreateIeeeFloatWaveFormat(SimClock.SampleRate, 1);
+        Database = database;
 
-        _chainStart      = new ChainStart(WaveFormat);
+        _chainStart      = new ChainStart(waveformat);
         _engine          = new Engine(_chainStart, this);
         _landingGear     = new LandingGear(_engine, this);
         _bumps           = new Bumps(_landingGear, this);
@@ -57,25 +59,14 @@ internal class Audio : ISampleProvider
         _gunFire         = new GunFire(_hitsReceived, this);
         _ordnanceRelease = new OrdnanceRelease(_gunFire, this);
 
-        _effects = new List<Effect>
-        {
-            _engine,
-            _landingGear,
-            _bumps,
-            _flaps,
-            _rollRate,
-            _gForces,
-            _stallBuffet,
-            _impacts,
-            _hitsReceived,
-            _gunFire,
-            _ordnanceRelease
-        };
-
         _lowPassFilter  = new LowPassFilter(_ordnanceRelease, 80, 2);
         _highPassFilter = new HighPassFilter(_lowPassFilter, 10, 2);
-
-        _chainEnd = _highPassFilter;
+        _multiplexing   = new MultiplexingSampleProvider(new[] { new ZeroingSampler(_highPassFilter) }, OutputChannelCount);
+        for (int i = 0; i < OutputChannelCount; i++)
+        {
+            _multiplexing.ConnectInputToOutput(0, i);
+        }
+        WaveFormat = _multiplexing.WaveFormat;
 
         Listener.StateDataReceived += UpdateSimClock;
     }
@@ -170,11 +161,11 @@ internal class Audio : ISampleProvider
         int samples = count;
 
         if (Enabled)
-            samples = _chainEnd.Read(buffer, offset, count);
+            samples = _multiplexing.Read(buffer, offset, count);
 
         lock (Lock)
         {
-            SimClock.Increment(count);
+            SimClock.Increment(count / OutputChannelCount);
         }
 
         return samples;
