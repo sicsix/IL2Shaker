@@ -1,4 +1,11 @@
-﻿# IL2Shaker
+### NOTE
+IL2Shaker v1 is no longer being developed.
+
+IL2Shaker v2 is a major overhaul that can be downloaded at [https://sicsix.itch.io/il2shaker](https://sicsix.itch.io/il2shaker).
+
+
+
+# IL2Shaker
 
 IL2Shaker is a bass shaker driver exclusively for [IL-2 Sturmovik: Great Battles](https://il2sturmovik.com/).
 
